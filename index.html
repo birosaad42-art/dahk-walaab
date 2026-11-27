@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#6d4be8">
+<meta id="themeMeta" name="theme-color" content="#6d4be8">
 <title>ضحك ولعب | نظام الإدارة</title>
 <style>
 :root{--p:#6d4be8;--bg:#f5f6fb;--ink:#24243a;--muted:#77788f;--line:#e8e8f1;--green:#18a875;--red:#e65c6a;--orange:#f0a33a;--shadow:0 8px 28px #30256b0d}
 *{box-sizing:border-box}html,body{max-width:100%;overflow-x:hidden}
-body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink);transition:background .2s,color .2s}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer;border:0;border-radius:10px;padding:9px 13px;background:var(--p);color:#fff;font-weight:700}
 button:disabled{opacity:.5;cursor:not-allowed}
@@ -52,6 +52,7 @@ th{color:var(--muted);font-weight:600;background:#fbfbfe}td .btns{display:flex;g
 .loginbox{background:#fff;padding:24px;border-radius:20px;width:min(400px,95vw);box-shadow:0 18px 60px #392c7a1a}
 .loginbox h1{margin:6px 0}.loginbox p{color:var(--muted);font-size:13px;line-height:1.6}
 .loginbox .field{margin:11px 0}.loginbox button{width:100%;margin-top:8px;padding:12px}.loginlogo{font-size:38px}
+.login-top{display:flex;justify-content:space-between;align-items:center}
 .timer{font-size:15px;font-weight:bold;color:var(--p);direction:ltr;display:inline-block}
 .toast{position:fixed;bottom:18px;left:18px;background:#24243a;color:#fff;padding:11px 15px;border-radius:10px;box-shadow:var(--shadow);z-index:60;max-width:90vw;font-size:13px}
 .footer{text-align:center;color:#aaa;font-size:11px;padding:8px;margin-top:auto}
@@ -61,21 +62,52 @@ th{color:var(--muted);font-weight:600;background:#fbfbfe}td .btns{display:flex;g
 .quick-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:7px;margin-top:9px;max-height:220px;overflow:auto}
 .qitem{background:#f8f7fe;border:1px solid var(--line);color:var(--ink);padding:8px;border-radius:10px;text-align:right;font-weight:500;display:grid;gap:2px}
 .qitem small{color:var(--muted);font-size:11px}.cart-row{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:6px 0;border-bottom:1px solid #f0f0f6;font-size:13px}
+tr.row-expired{background:#ffe4e7}tr.row-near{background:#fff3f4}
+
+/* Dark Mode */
+body.dark{--p:#8b6eff;--bg:#0f111a;--ink:#eef0f8;--muted:#9aa0b8;--line:#25293c;--shadow:0 8px 28px #00000055}
+body.dark .login{background:linear-gradient(135deg,#0d0f18,#191d2e)}
+body.dark .side,body.dark .stat,body.dark .panel,body.dark .loginbox,body.dark .modal,body.dark .user-chip{background:#171a27;border-color:var(--line);color:var(--ink)}
+body.dark .field label{color:#b4bad0}
+body.dark .field input,body.dark .field select,body.dark .field textarea,body.dark .search{background:#111420;border-color:#2c3148;color:var(--ink)}
+body.dark th{background:#1e2233;color:#b8bfd6}
+body.dark th,body.dark td,body.dark .cart-row{border-color:#25293c}
+body.dark .nav button{color:#b0b6ce}
+body.dark .nav button.active,body.dark .nav button:hover{background:#262346;color:#c7b8ff}
+body.dark button.secondary{background:#262346;color:#c7b8ff}
+body.dark button.danger{background:#3a1d24;color:#ff8f9a}
+body.dark button.success{background:#153429;color:#5ce0ab}
+body.dark button.warn{background:#382a16;color:#ffca7a}
+body.dark .qitem{background:#1e2233;border-color:#2c3148;color:var(--ink)}
+body.dark .stat .sicon{background:#262346}
+body.dark .notice{background:#2d2415;color:#ffd08a}
+body.dark .notice.err{background:#381c22;color:#ff9aa4}
+body.dark .pill{background:#262346;color:#c7b8ff}
+body.dark .pill.green{background:#153429;color:#5ce0ab}
+body.dark .pill.red{background:#3a1d24;color:#ff8f9a}
+body.dark .pill.orange{background:#382a16;color:#ffca7a}
+body.dark tr.row-expired{background:#471c24}
+body.dark tr.row-near{background:#311e27}
+body.dark .toast{background:#262a3d;border:1px solid #383e58}
+
 @media(max-width:1100px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.formgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.pos-grid{grid-template-columns:1fr}}
 @media(max-width:760px){
 .layout{display:block}.side{position:sticky;top:0;right:auto;bottom:auto;width:100%;height:auto;border-left:0;border-bottom:1px solid var(--line);padding:8px 10px;z-index:20}
 .brand{padding:2px 4px 7px}.logo{width:30px;height:30px;font-size:17px;border-radius:9px}.brand b{font-size:15px}.brand small,.footer{display:none}
 .nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch}
 .nav button{width:auto;flex-shrink:0;padding:7px 10px;gap:5px;font-size:13px;white-space:nowrap;border-radius:9px;background:#f7f6fc}
-.nav button.active,.nav button.active:hover{background:var(--p);color:#fff}.nav .ico{width:auto;font-size:15px}.nav .badge{margin-right:3px}
+body.dark .nav button{background:#1e2233}
+.nav button.active,.nav button.active:hover,body.dark .nav button.active,body.dark .nav button.active:hover{background:var(--p);color:#fff}.nav .ico{width:auto;font-size:15px}.nav .badge{margin-right:3px}
 .main{margin-right:0;width:100%;padding:12px}.top h1{font-size:18px}.cards{gap:8px}.stat{padding:11px}.stat strong{font-size:17px}.grid2{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr 1fr}.panel{padding:12px}
 }
 @media(max-width:460px){.formgrid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.stat strong{font-size:16px}}
-@media print{.side,.top-actions,.actions,form,.btns,.no-print,.notice{display:none!important}.main{margin:0!important;width:100%!important;padding:0!important}.panel,.stat{box-shadow:none;border:1px solid #ccc;break-inside:avoid}body{background:#fff}}
+@media print{.side,.top-actions,.actions,form,.btns,.no-print,.notice{display:none!important}.main{margin:0!important;width:100%!important;padding:0!important}.panel,.stat{box-shadow:none;border:1px solid #ccc;break-inside:avoid}body,body.dark,body.dark .panel,body.dark .stat{background:#fff!important;color:#000!important}}
 </style>
 </head>
 <body>
-<div id="loginScreen" class="login"><div class="loginbox"><div class="loginlogo">🎈</div><h1 id="loginPlaceTitle">ضحك ولعب</h1><p>نظام إدارة الكيدز أريا والكافيه</p>
+<div id="loginScreen" class="login"><div class="loginbox">
+<div class="login-top"><div class="loginlogo">🎈</div><button id="loginThemeBtn" type="button" class="secondary small" style="width:auto;margin-top:0;padding:6px 10px;font-size:12px">🌙 الوضع الليلي</button></div>
+<h1 id="loginPlaceTitle">ضحك ولعب</h1><p>نظام إدارة الكيدز أريا والكافيه</p>
 <div id="cloudGate">
   <div id="cloudLoading" style="text-align:center;color:var(--muted);padding:12px 0;font-size:13px">☁️ جاري الاتصال بالسحابة...</div>
   <div id="cloudRetryBox" class="hidden">
@@ -98,15 +130,26 @@ th{color:var(--muted);font-weight:600;background:#fbfbfe}td .btns{display:flex;g
   <p style="font-size:11px;text-align:center;margin:8px 0 0;color:#18a875">☁️ متصل بالسحابة — مزامنة تلقائية بين الأجهزة</p>
   <div style="text-align:center;margin-top:6px"><button id="cloudUnlinkBtn" type="button" class="secondary small" style="width:auto;padding:5px 10px;font-size:11px;margin-top:0">تغيير حساب السحابة</button></div>
 </div>
-<p id="jsStatus" style="font-size:12px;text-align:center;margin:8px 0 0;color:#e65c6a">الإصدار 3.5 — جاري التحميل...</p>
+<p id="jsStatus" style="font-size:12px;text-align:center;margin:8px 0 0;color:#e65c6a">الإصدار 3.6 — جاري التحميل...</p>
 </div></div>
-<div id="app" class="layout hidden"><aside class="side"><div class="brand"><div class="logo">🎈</div><div class="brandtxt"><b id="brandName">ضحك ولعب</b><small>إدارة الكيدز أريا والكافيه</small></div></div><nav class="nav" id="nav"></nav><div class="footer">مزامنة سحابية • 3.5</div></aside><main class="main"><header class="top"><div><h1 id="pageTitle">الرئيسية</h1><p id="today"></p></div><div class="top-actions"><button id="soundToggleBtn" class="secondary small" type="button">🔔 الصوت: مفعل</button><button id="changeMyPassBtn" class="secondary small" type="button">🔑 كلمة السر</button><span class="user-chip">👤 <span id="userName">—</span> (<span id="userRoleLabel">—</span>)</span><button id="logoutBtn" class="secondary" type="button">خروج</button></div></header><div id="view"></div></main></div>
+<div id="app" class="layout hidden"><aside class="side"><div class="brand"><div class="logo">🎈</div><div class="brandtxt"><b id="brandName">ضحك ولعب</b><small>إدارة الكيدز أريا والكافيه</small></div></div><nav class="nav" id="nav"></nav><div class="footer">مزامنة سحابية • 3.6</div></aside><main class="main"><header class="top"><div><h1 id="pageTitle">الرئيسية</h1><p id="today"></p></div><div class="top-actions"><button id="themeToggleBtn" class="secondary small" type="button">🌙 الوضع الليلي</button><button id="soundToggleBtn" class="secondary small" type="button">🔔 الصوت: مفعل</button><button id="changeMyPassBtn" class="secondary small" type="button">🔑 كلمة السر</button><span class="user-chip">👤 <span id="userName">—</span> (<span id="userRoleLabel">—</span>)</span><button id="logoutBtn" class="secondary" type="button">خروج</button></div></header><div id="view"></div></main></div>
 <div id="modalWrap" class="modal-back hidden"><div class="modal" id="modalBox"></div></div>
 <div id="toast" class="toast hidden"></div>
 <script>
-window.onerror=function(m,u,l){var e=document.getElementById("jsStatus");if(e){e.style.color="#e65c6a";e.textContent="خطأ 3.5: "+m+" ("+l+")";}};
-var D={KEY:"dwl_system_v2",user:null,tab:"dashboard",cart:[],repRange:"month",repFrom:"",repTo:"",filters:{sessions:"",subs:"",stock:"",expenses:"",setup:"",setupCat:""},alerted:new Set(),soundOn:true,audio:null,cam:null,lock:false,pendingRemoteRender:false};
+window.onerror=function(m,u,l){var e=document.getElementById("jsStatus");if(e){e.style.color="#e65c6a";e.textContent="خطأ 3.6: "+m+" ("+l+")";}};
+var D={KEY:"dwl_system_v2",THEME_KEY:"dwl_theme",user:null,tab:"dashboard",cart:[],repRange:"month",repFrom:"",repTo:"",filters:{sessions:"",subs:"",stock:"",expenses:"",setup:"",setupCat:""},alerted:new Set(),soundOn:true,audio:null,cam:null,lock:false,pendingRemoteRender:false};
 function $(id){return document.getElementById(id);}
+function applyTheme(mode){
+  var dk=mode==="dark";
+  document.body.classList.toggle("dark",dk);
+  var txt=dk?"☀️ الوضع النهاري":"🌙 الوضع الليلي";
+  if($("themeToggleBtn"))$("themeToggleBtn").textContent=txt;
+  if($("loginThemeBtn"))$("loginThemeBtn").textContent=txt;
+  if($("themeMeta"))$("themeMeta").setAttribute("content",dk?"#0f111a":"#6d4be8");
+  try{localStorage.setItem(D.THEME_KEY,dk?"dark":"light");}catch(e){}
+}
+function toggleTheme(){applyTheme(document.body.classList.contains("dark")?"light":"dark");}
+try{applyTheme(localStorage.getItem(D.THEME_KEY)||"light");}catch(e){}
 var NAV=[["dashboard","🏠","الرئيسية",["مدير","مشرف","كاشير","عامل"]],["sessions","🧒","جلسات الأطفال",["مدير","مشرف","كاشير","عامل"]],["subs","🎟️","الاشتراكات",["مدير","مشرف","كاشير","عامل"]],["pos","☕","الكافيه والكاشير",["مدير","مشرف","كاشير"]],["stock","📦","المخزون",["مدير","مشرف","كاشير"]],["purchases","🧾","المشتريات والموردين",["مدير","مشرف"]],["expenses","💸","المصروفات",["مدير","مشرف"]],["setup","🏗️","تجهيز المحل",["مدير"]],["staff","👥","الموظفين",["مدير","مشرف"]],["reports","📊","التقارير",["مدير","مشرف"]],["settings","⚙️","الإعدادات",["مدير"]]];
 function defS(){return{settings:{place:"ضحك ولعب",half:50,hour:80,hourHalf:110,two:140},users:[{name:"المدير العام",username:"admin",password:"1234",role:"مدير",active:true}],counters:{invoiceSeq:0},sessions:[],subs:[],products:[],purchases:[],expenses:[],setupCosts:[],staff:[],sales:[]};}
 function loadS(){try{var r=localStorage.getItem(D.KEY)||localStorage.getItem("dwl_data");if(!r)return defS();var p=JSON.parse(r),d=defS(),u=Array.isArray(p.users)&&p.users.length?p.users.map(function(x){return Object.assign({active:true,username:"",password:"",role:"عامل",name:""},x);}):d.users;if(!u.some(function(x){return x.role==="مدير"&&x.active!==false;}))u.unshift(d.users[0]);return{settings:Object.assign({},d.settings,p.settings||{}),users:u,counters:{invoiceSeq:Number(p.counters&&p.counters.invoiceSeq?p.counters.invoiceSeq:0)},sessions:Array.isArray(p.sessions)?p.sessions:[],subs:Array.isArray(p.subs)?p.subs:[],products:Array.isArray(p.products)?p.products:[],purchases:Array.isArray(p.purchases)?p.purchases:[],expenses:Array.isArray(p.expenses)?p.expenses:[],setupCosts:Array.isArray(p.setupCosts)?p.setupCosts:[],staff:Array.isArray(p.staff)?p.staff:[],sales:Array.isArray(p.sales)?p.sales:[]};}catch(e){return defS();}}
@@ -280,7 +323,7 @@ function render(){
   if(aid){var el=$(aid);if(el){el.focus();if(ss!==null&&typeof el.setSelectionRange==="function"){try{el.setSelectionRange(ss,ss);}catch(e){}}}}
 }
 
-function openPrint(t,bh){var w=window.open("","_blank","width=420,height=650");if(!w)return toast("المتصفح منع الطباعة");var d=w.document;d.open();d.close();d.documentElement.dir="rtl";d.title=t;d.body.style.cssText="font-family:Tahoma,Arial,sans-serif;padding:20px;max-width:340px;margin:auto;direction:rtl";d.body.innerHTML=bh;setTimeout(function(){try{w.focus();w.print();}catch(e){}},250);}
+function openPrint(t,bh){var w=window.open("","_blank","width=420,height=650");if(!w)return toast("المتصفح منع الطباعة");var d=w.document;d.open();d.close();d.documentElement.dir="rtl";d.title=t;d.body.style.cssText="font-family:Tahoma,Arial,sans-serif;padding:20px;max-width:340px;margin:auto;direction:rtl;background:#fff;color:#000";d.body.innerHTML=bh;setTimeout(function(){try{w.focus();w.print();}catch(e){}},250);}
 function printInv(x){openPrint("فاتورة "+x.invoice,"<h2 style='margin:0 0 6px;text-align:center'>"+esc(st.settings.place)+"</h2><p style='margin:0 0 10px;text-align:center;color:#555'>فاتورة <b>"+esc(x.invoice)+"</b></p><p style='font-size:12px'>"+new Date(x.date).toLocaleString("ar-EG")+" | "+esc(x.payMethod||"نقدي")+"<br>الكاشير: "+esc(x.cashierName||"")+"</p><hr>"+(x.items||[]).map(function(i){return"<div style='display:flex;justify-content:space-between;font-size:13px;margin:5px 0'><span>"+esc(i.name)+"×"+i.qty+"</span><b>"+money(i.price*i.qty)+"</b></div>";}).join("")+"<hr>"+(x.discount?"<p>الخصم: "+money(x.discount)+"</p>":"")+"<h3>الإجمالي: "+money(x.total)+"</h3><p style='text-align:center;font-size:12px'>شكرًا لزيارتكم ❤️</p>");}
 function printS(s){openPrint("إيصال جلسة","<h2 style='text-align:center;margin:0 0 8px'>"+esc(st.settings.place)+"</h2><p style='text-align:center;margin:0 0 10px'>إيصال جلسة</p><hr><p>الطفل: <b>"+esc(s.child)+"</b></p><p>ولي الأمر: "+esc(s.parent||"—")+"</p><p>الهاتف: "+esc(s.phone||"—")+"</p><p>الدخول: "+new Date(s.start).toLocaleString("ar-EG")+"</p><p>"+(s.out?"الخروج: "+new Date(s.out).toLocaleString("ar-EG"):"الخروج المتوقع: "+tmStr(s.end))+"</p><p>المدة: "+s.duration+" د</p><hr><h3>الإجمالي: "+money(s.price)+"</h3>");}
 
@@ -290,6 +333,8 @@ function sellOk(){if(!D.cart.length||D.lock)return;D.lock=true;try{for(var i=0;i
 function scanBar(){if(!("BarcodeDetector"in window))return toast("الكاميرا غير مدعومة بهذا المتصفح");navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}}).then(function(sr){D.cam=sr;modal("<h3>📷 وجّه الكاميرا للباركود</h3><video id='bv' style='width:100%;border-radius:10px;background:#000' autoplay playsinline muted></video><div class='actions'><button type='button' class='danger' data-mact='close'>إغلاق</button></div>");var v=$("bv");v.srcObject=sr;v.play();var dt=new window.BarcodeDetector();function lp(){if(!D.cam||!$("bv"))return;dt.detect(v).then(function(c){if(c.length){var cd=c[0].rawValue;closeM();var p=st.products.find(function(x){return x.barcode===cd;});if(p){addCart(p,1);toast("أُضيف: "+p.name);}else{if($("posSearch"))$("posSearch").value=cd;toast("كود غير مسجل: "+cd);}return;}requestAnimationFrame(lp);}).catch(function(){requestAnimationFrame(lp);});}requestAnimationFrame(lp);}).catch(function(){toast("تعذر فتح الكاميرا");});}
 
 document.addEventListener("click",unlockA,{passive:true});
+$("themeToggleBtn").addEventListener("click",toggleTheme);
+$("loginThemeBtn").addEventListener("click",toggleTheme);
 $("modalWrap").addEventListener("click",function(e){if(e.target===$("modalWrap"))closeM();});
 $("cloudForm").addEventListener("submit",function(e){e.preventDefault();if(window.fbCloudSignIn)window.fbCloudSignIn();});
 $("cloudBtn").addEventListener("click",function(e){e.preventDefault();if(window.fbCloudSignIn)window.fbCloudSignIn();});
@@ -362,13 +407,13 @@ function tick(){
     var end=Number(el.dataset.end),sid=el.dataset.sid||"",left=end-Date.now(),tr=el.closest("tr");
     if(left<=0){
       el.textContent="انتهى الوقت";el.style.color="var(--red)";
-      if(tr)tr.style.background="#ffe4e7";
+      if(tr){tr.classList.add("row-expired");tr.classList.remove("row-near");}
       var k=sid+"_"+end;
       if(sid&&!D.alerted.has(k)){D.alerted.add(k);beep();toast("⏰ انتهى وقت جلسة!");}
     }else{
       var ts=Math.floor(left/1000),m=Math.floor(ts/60),s=ts%60,near=left<=10*60000;
       el.style.color=near?"var(--red)":"var(--p)";
-      if(tr)tr.style.background=near?"#fff3f4":"";
+      if(tr){tr.classList.remove("row-expired");tr.classList.toggle("row-near",near);}
       el.textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
     }
   });
@@ -573,7 +618,7 @@ async function syncFromCloud() {
   document.getElementById("cloudRetryBox").classList.add("hidden");
   document.getElementById("appLoginWrap").classList.add("hidden");
   document.getElementById("cloudLoading").classList.remove("hidden");
-  setJsStatus("الإصدار 3.5 — جاري مزامنة البيانات...", true);
+  setJsStatus("الإصدار 3.6 — جاري مزامنة البيانات...", true);
 
   try {
     var root = await detectAndReadRoot();
@@ -601,7 +646,7 @@ async function syncFromCloud() {
     document.getElementById("cloudLoading").classList.add("hidden");
     document.getElementById("appLoginWrap").classList.remove("hidden");
     refreshLogin();
-    setJsStatus("الإصدار 3.5 — ✅ متصل بالسحابة (100%)", true);
+    setJsStatus("الإصدار 3.6 — ✅ متصل بالسحابة (100%)", true);
   } catch (err) {
     console.error("RTDB error:", err);
     document.getElementById("cloudLoading").classList.add("hidden");
@@ -625,7 +670,7 @@ onAuthStateChanged(auth, (fbUser) => {
     document.getElementById("app").classList.add("hidden");
     document.getElementById("loginScreen").classList.remove("hidden");
     document.getElementById("cloudForm").classList.remove("hidden");
-    setJsStatus("الإصدار 3.5 — بانتظار ربط الجهاز بالسحابة", true);
+    setJsStatus("الإصدار 3.6 — بانتظار ربط الجهاز بالسحابة", true);
     return;
   }
   syncFromCloud();
